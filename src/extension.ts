@@ -3,20 +3,27 @@ import * as vscode from 'vscode';
 const commands = [
 	{
 		id: 'debugadapter-evaluate.evaluate',
-		handler: async () => {
+		handler: async (expression?: string) => {
 			const debugSession = vscode.debug.activeDebugSession;
-			if (!debugSession) {
+			if (debugSession === undefined) {
 				vscode.window.showErrorMessage('No active debug session. Start debugging first.');
 				return;
 			}
 
-			const inputOptions: vscode.InputBoxOptions = {
-				prompt: 'Expression',
-				title: 'Execute in Debugger'
-			};
-			const inputExpression = (await vscode.window.showInputBox(inputOptions))?.trim();
-			if (!inputExpression) {
-				return;
+			let inputExpression: string | undefined = undefined;
+
+			if (expression === undefined) {
+				const inputOptions: vscode.InputBoxOptions = {
+					prompt: 'Expression',
+					title: 'Execute in Debugger',
+					placeHolder: '1 + 1',
+				};
+				inputExpression = (await vscode.window.showInputBox(inputOptions));
+				if (inputExpression === undefined) {
+					return;
+				}
+			} else {
+				inputExpression = expression;
 			}
 
 			vscode.debug.activeDebugConsole.appendLine(`→ ${inputExpression}`);
