@@ -7,17 +7,17 @@
 		"vscode": "^1.68.0"
 	},
 	"categories": [
-		"Other"
+		"Debuggers"
 	],
 	"activationEvents": [
-        "onCommand:debugadapter-evaluate.helloWorld"
+		"onCommand:debugadapter-evaluate.evaluate"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "debugadapter-evaluate.helloWorld",
-				"title": "Hello World"
+				"command": "debugadapter-evaluate.evaluate",
+				"title": "Debug Adapter: Evaluate"
 			}
 		]
 	},
