@@ -77,6 +77,6 @@ You can also assign a keybinding to the task. This will let you share the keybin
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.1
 
 Initial release
