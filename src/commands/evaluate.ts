@@ -37,7 +37,7 @@ const command: Command = {
 
     // evaluate
     vscode.debug.activeDebugConsole.appendLine(`→ ${expression}`);
-    const result = evaluate(debugSession, expression);
+    const result = await evaluate(debugSession, expression);
     vscode.debug.activeDebugConsole.appendLine(`← ${result}`);
   }
 };
