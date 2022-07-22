@@ -4,6 +4,7 @@
 	"description": "Run commands and evaluate expressions in Debug Console from tasks.json",
 	"version": "0.0.1",
 	"publisher": "aryan02420",
+	"license": "MIT",
 	"repository": {
 		"url": "https://github.com/aryan02420/DebugAdapter-Evaluate"
 	},
