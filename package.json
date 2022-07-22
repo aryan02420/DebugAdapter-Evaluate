@@ -1,8 +1,12 @@
 {
   "name": "debugadapter-evaluate",
 	"displayName": "DebugAdapter Evaluate",
-	"description": "",
+	"description": "Run commands and evaluate expressions in Debug Console from tasks.json",
 	"version": "0.0.1",
+	"publisher": "aryan02420",
+	"repository": {
+		"url": "https://github.com/aryan02420/DebugAdapter-Evaluate"
+	},
 	"engines": {
 		"vscode": "^1.68.0"
 	},

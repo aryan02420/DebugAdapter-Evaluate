@@ -1,70 +1,82 @@
 # debugadapter-evaluate README
 
-This is the README for your extension "debugadapter-evaluate". After writing up a brief description, we recommend including the following sections.
+VSCode extension to commands and evaluate expressions in Debug Console from tasks.json
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+VSCode allows shell commands to be automated. These run inside a new shell process. Sometimes, we need to attach to an existing process for debugging, which requires manual input in the debug console to set the application to a particular state.
 
-For example if there is an image subfolder under your extension project workspace:
+This addon provides a basic interface to talk to the debug process programatically. Then tasks can be created to invoke commands in the debug console through the UI.
 
-\!\[feature X\]\(images/feature-x.png\)
+## Usage
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+> You must have an active debug session for this extension to work.
 
-## Requirements
+### Through UI
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- search for and run `Debug Adapter: Evaluate`. You will be prompted to input an expression.
 
-## Extension Settings
+![Extension Preview](preview.gif)
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+### Through `tasks.json`
 
-For example:
+```json
+// .vscode/tasks.json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "My custom expression",
+      "command": "${input:input001}",
+      "problemMatcher": [],
+    },
+  ],
+  "inputs": [
+    {
+      "id": "input001",
+      "type": "command",
+      "command": "debugadapter-evaluate.evaluate",
+      "args": "console.log('Hello World!')",
+    },
+  ],
+}
+```
 
-This extension contributes the following settings:
+### Through `keybindings.json`
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+Search for `Preferences: Open Keyboard Shortcuts (JSON)` in command palette
+
+```json
+// /home/aryan/.config/Code/User/keybindings.json
+[
+  {
+    "key": "ctrl+k t",
+    "command": "debugadapter-evaluate.evaluate",
+    "args": "console.log('Hello World!')",
+  }
+]
+```
+
+You can also assign a keybinding to the task. This will let you share the keybinding with other projects containing the same task name.
+
+```json
+{
+  "key": "ctrl+h",
+  "command": "workbench.action.tasks.runTask",
+  "args": "My custom expression"
+}
+```
+
+## Alternatives
+
+- VS Code already has a built in command `editor.debug.action.selectionToRepl`. However this only works with selected text and cannot be called programatically.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- None
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Initial release
